@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "About.razor.css",
+    "inputFile": "About.razor.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/style.css",
+    "inputFile": "wwwroot/css/style.scss"
+  }
+]

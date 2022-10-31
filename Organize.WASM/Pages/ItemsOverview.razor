@@ -1,0 +1,35 @@
+﻿@page "/items"
+@page "/items/{TypeString}/{Id:int}" 
+@* 
+    TypeString in the code behind has to be string for this to work, not the value from ItemTypeEnum.cs in Organize.Shared project # 
+    test for valid TypeString is in the code behind.
+        
+        Enum.TryParse(typeof(ItemTypeEnum), TypeString, out _)
+
+    ' int ' in {Id:int} restricts the uri to only having an integer value at the end of the address when a TypeString is provided/requested.
+    https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-6.0#route-constraints
+*@
+
+<div class="items-container">
+    <div class="items-list-container">
+        <ItemsList></ItemsList> @* Organize.WASM.Components reference is in the _imports.razor file*@
+    </div>
+
+    @if (ShowEdit)
+    {
+        <div class="item-edit-container">
+            <ItemEdit></ItemEdit>
+        </div>
+    }
+</div>
+
+<div class="item-add-box fixed-bottom">
+    <div class="dropdown item-add-input">
+        <Dropdown TValue="Organize.Shared.Enums.ItemTypeEnum"
+                  SelectableItems="DropDownTypes"
+                  SelectedItemChanged="@(args => SelectedDropDownType = args)" />
+
+    </div>
+    <button class="orga-button" @onclick="AddNewAsync" disabled="@(SelectedDropDownType == null)">Add</button>
+
+</div>

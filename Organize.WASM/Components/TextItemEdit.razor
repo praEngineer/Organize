@@ -1,0 +1,15 @@
+﻿<div>
+    <label for="subtitle">Subtitle</label>
+    <input id="subtitle" class="item-edit-input" @bind-value="@pTextItem.SubTitle" @bind-value:event="oninput" />
+
+    <label for="details">Details</label>
+    <textarea id="details"
+              type="text"
+              class="item-edit-input"
+              @bind-value="@pTextItem.Detail" @bind-value:event="oninput"></textarea>
+</div>
+
+@code{
+    [Parameter]
+    public TextItem pTextItem{ get; set; }
+}

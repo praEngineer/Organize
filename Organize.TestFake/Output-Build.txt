@@ -1,0 +1,13 @@
+﻿Build started...
+1>------ Build started: Project: Organize.WASM, Configuration: Debug Any CPU ------
+Restored C:\Users\sfarkas\Desktop\Organize_final_dotNET6\Organize.InMemoryStorage\Organize.Persistence_InMemoryStorage.csproj (in 44 ms).
+Restored C:\Users\sfarkas\Desktop\Organize_final_dotNET6\Organize.IndexedDB\Organize.Persistence_IndexedDB.csproj (in 42 ms).
+Restored C:\Users\sfarkas\Desktop\Organize_final_dotNET6\Organize.DataAccess\Organize.DataAccess_Other.csproj (in 43 ms).
+Restored C:\Users\sfarkas\Desktop\Organize_final_dotNET6\Organize.Business\Organize.Business.csproj (in 8 ms).
+Restored C:\Users\sfarkas\Desktop\Organize_final_dotNET6\Organize.TestFake\Organize.Business_TestFake.csproj (in 8 ms).
+Restored C:\Users\sfarkas\Desktop\Organize_final_dotNET6\Organize.Shared\Organize.Shared.csproj (in 91 ms).
+NuGet package restore failed. Please see Error List window for detailed warnings and errors.
+Error occurred while restoring NuGet packages: The package is missing the required nuspec file. Path: C:\Users\sfarkas\.nuget\packages\microsoft.extensions.dependencyinjection\6.0.0
+1>C:\Program Files\dotnet\sdk\6.0.401\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.FrameworkReferenceResolution.targets(436,4): error NETSDK1082: There was no runtime pack for Microsoft.AspNetCore.App available for the specified RuntimeIdentifier 'browser-wasm'.
+1>Done building project "Organize.WASM.csproj" -- FAILED.
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========

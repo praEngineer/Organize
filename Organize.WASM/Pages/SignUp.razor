@@ -1,0 +1,59 @@
+﻿@page "/signup"
+@inherits SignUpBase
+@layout UnAuthLayout
+<div class="sign-form">
+    <EditForm EditContext="@EditContext" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnValidationTrouble">
+        <DataAnnotationsValidator />
+
+        <div class="sign-validation">
+            <ValidationInput @bind-Value="objUser.userName"
+                             placeholder="Username"
+                             Error=@GetError(() => objUser.userName) />
+        </div>
+
+        <div class="sign-validation">
+            <ValidationInput @bind-Value="objUser.password"
+                             placeholder="Password"
+                             type="password"
+                             Error=@GetError(() => objUser.password) />
+        </div>
+
+        <div class="sign-validation">
+            <ValidationInput @bind-Value="objUser.firstName"
+                             placeholder="First name"
+                             Error=@GetError(() => objUser.firstName) />
+        </div>
+
+        <div class="sign-validation">
+            <ValidationInput @bind-Value="objUser.lastName"
+                             placeholder="Last name"
+                             Error=@GetError(() => objUser.lastName) />
+        </div>
+
+        <div class="sign-validation">
+            <ValidationInput @bind-Value="objUser.phoneNumber"
+                             placeholder="Phone number"
+                             Error=@GetError(() => objUser.phoneNumber) />
+        </div>
+
+        <div class="sign-validation">
+            <Dropdown TValue="Organize.Shared.Enums.GenderTypeEnum"
+                      @bind-SelectedItem="@SelectedGenderTypeDropDownItem"
+                      SelectableItems="@GenderTypeDropDownItems">
+
+            </Dropdown>
+        </div>
+
+        <button class="sign-button btn btn-primary" type="submit">Sign up</button>
+        @if (LastSubmitResult.Length > 0)
+        {
+            <h2>
+               @LastSubmitResult
+            </h2>
+            <div class="is-invalid">
+                <ValidationSummary />
+            </div>
+        }
+    </EditForm>
+
+</div>

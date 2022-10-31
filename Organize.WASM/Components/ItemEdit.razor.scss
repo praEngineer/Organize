@@ -1,0 +1,30 @@
+﻿@import '../wwwroot/css/_bootstrap-global.scss'; /* needed when employing the @extend SCSS command */
+@import '../wwwroot/bootstrap/scss/_forms.scss';
+@import 'BaseStyles/_ItemElementBase.scss';
+
+::deep .title {
+    @extend .title-base; /* This is allowed because of the import of BaseStyles above.*/
+    text-decoration: underline;
+}
+
+
+::deep .item-edit-info { /* added ::deep to this and three below when switching to Dynamic Component in ItemEdit.razor */
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 24px;
+}
+
+::deep .item-edit-info-text {
+    flex: 1 1 auto
+}
+
+::deep .item-edit-info-count { /* for Total Count display */
+    flex: 1 1 auto;
+    text-align: right
+}
+
+::deep .item-edit-input {
+    @extend .form-control; /* imported from _forms.scss to be consistent with the other form child tags */
+    width: 100%;
+    margin-bottom: 12px;
+}

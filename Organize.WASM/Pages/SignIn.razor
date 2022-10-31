@@ -1,0 +1,52 @@
+﻿@page "/signin"
+@page "/" 
+<!-- The command above page "/" causes this razor page to be the default/first page of the system.-->
+@inherits SignInBase
+
+@layout UnAuthLayout 
+@* 
+    Layout is a like an ASP Master Page to this @page.
+
+    Layout is also considered a component in Blazor applications. 
+
+    When a page with a layout is rendered, the page is rendered within 
+    the contents of the specified layout at the location where the 
+    layout renders its Body property.
+
+    The root <div/> below is placed at the @Body in the UnAuthLayout.razor file.
+*@
+
+<div class="sign-form">
+    <p class="welcome-text">Hello @(string.IsNullOrEmpty(aSuspectUser.UserName) ? "User" : aSuspectUser.UserName) - Today is @Day!</p>
+
+    <EditForm EditContext="@EditContext" OnValidSubmit="OnSubmit" OnInvalidSubmit="OnValidationTrouble">
+        <DataAnnotationsValidator />
+        <div class="sign-validation">
+            <ValidationInput placeholder="network ID"
+                             @bind-Value="@aSuspectUser.UserName"
+                             Error="@GetError(() => aSuspectUser.UserName)"></ValidationInput>
+            @*GetError is actually examining the decoration of the properties in cSuspectUser.*@
+        </div>
+        <div class="sign-validation">
+            <ValidationInput type="@(ShowPassword  ? "text" : "password")"
+                             placeholder="Password"
+                             @bind-Value="@aSuspectUser.Password"
+                             Error="@GetError(() => aSuspectUser.Password)"></ValidationInput>
+            <input type="checkbox" @bind="ShowPassword" />Show password
+        </div>
+        <button class="sign-button btn btn-primary" type="submit">Sign in</button>
+        @if (LastSubmitResult.Length > 0)
+        {
+            <h2>
+               @LastSubmitResult
+            </h2>
+            <div class="is-invalid">
+                <ValidationSummary />
+            </div>
+        }
+    </EditForm>
+    <div class="signup">
+        <a href="@(aSuspectUser.UserName != null ? "/signup?username="+aSuspectUser.UserName : "/signup")">Sign up</a>
+    </div>
+
+</div>

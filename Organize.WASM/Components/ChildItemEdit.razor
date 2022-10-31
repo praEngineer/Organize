@@ -1,0 +1,16 @@
+﻿<div class="title">Add new child items</div>
+
+<button class="orga-button mb-3" @onclick="AddNewChildToParentAsync">Add</button>
+
+<ul class="list-group">
+    @foreach (var aChildItem in ParentItem.ChildItems)
+    {
+        <li class="list-group-item">
+            <input class="form-control" 
+            type="text"
+               value="@aChildItem.Title"
+               @onchange="@((eventArgs) => OnChildItemTitleChanged(aChildItem,eventArgs))" />
+               @* two lines above replaced @bind-value-"@aChildItem.Title" because the change should be persisted if next step is navigation away *@
+        </li>
+    }
+</ul>

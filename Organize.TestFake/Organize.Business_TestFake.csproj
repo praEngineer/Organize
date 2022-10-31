@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Organize.DataAccess_WebAPI\Organize.DataAccess_WebAPI.csproj" />
+    <ProjectReference Include="..\Organize.Shared\Organize.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

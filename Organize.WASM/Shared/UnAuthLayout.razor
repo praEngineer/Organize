@@ -1,0 +1,75 @@
+﻿@inherits LayoutComponentBase
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Security.Claims
+@using Organize.Shared.Contracts
+
+<PageTitle>Oganize -- Please sign in.</PageTitle> 
+@* above needs builder.RootComponents.Add<HeadOutlet>("head::after"); in program.cs*@
+
+<nav class="navbar navbar-light justify-content-between fixed-top">
+    <div class="navbar-brand">Organize</div>
+    <form class="form-inline">
+        @* Add the buttons here.  HREF value needs to match the name of one of the page directives. *@
+        <NavLink href="signin" ActiveClass="active-nav">
+            <button class="btn btn-outline-success my-2 my-sm-0" >Sign in</button>
+        </NavLink>
+        <div class="btn btn-outline-success my-2 my-sm-0" @onclick="About">About</div>
+
+        <div class="btn btn-outline-success my-2 my-sm-0" @onclick="lclSignOut">Sign out</div>
+    </form>
+</nav>
+
+<div class="main">
+    @Body
+</div>
+
+@code {
+    [Inject]
+    private IModalService ModalService { get; set; }
+
+    [Inject]
+    protected ICurrentUserService CurrentUserService { get; set; }
+
+    [Inject]
+    private NavigationManager NM { get; set; }
+
+    protected void lclSignOut()
+    {
+        UnsetUser();
+
+        var parameters = new ModalParameters();
+        if (CurrentUserService.cCurrentUser.lastName != "one")
+        {
+            parameters.Add(nameof(ModalMessage.Message), CurrentUserService.cCurrentUser.firstName + " " + CurrentUserService.cCurrentUser.lastName + " currently signed out");
+        }
+        else {
+            parameters.Add(nameof(ModalMessage.Message), "no user currently signed in");
+        }
+        ModalService.Show<ModalMessage>("Information", parameters);
+    }
+
+    private void UnsetUser()
+    {
+        var unsetUser = new ClaimsPrincipal(new ClaimsIdentity());
+        var authState = Task.FromResult(new AuthenticationState(unsetUser));
+        NotifyAuthenticationStateChanged(authState);
+    }
+
+    private void NotifyAuthenticationStateChanged(Task<AuthenticationState> task)
+    {
+        if (task == null)
+        {
+            throw new ArgumentNullException(nameof(task));
+        }
+
+        AuthenticationStateChanged?.Invoke(task);
+    }
+
+    public event AuthenticationStateChangedHandler AuthenticationStateChanged;
+
+
+    protected void About()
+    {
+        NM.NavigateTo("/about");
+    }
+}

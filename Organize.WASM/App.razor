@@ -1,0 +1,46 @@
+<Blazored.Modal.CascadingBlazoredModal>
+    <CascadingAuthenticationState>
+        @* CascadingAuthenticationState is a component of Microsoft.AspNetCore.Components.Authorization; see _Imports.razor *@
+        <Error>
+            <Router AppAssembly="@typeof(Program).Assembly"
+                    AdditionalAssemblies="new[] { typeof(GeneralUi.About).Assembly}">
+                    <!-- 
+                        "AdditionalAssemblies" allows app to find razor pages (e.g., ABOUT) in other projects of this solution, rather than only Organize.WASM. 
+                        Need to avoid duplicate razor file names even though those are in separate projects of the solution.
+                    -->
+                <Found Context="routeData">
+                    @* the name of the component in the tag below has to match any razor file name (e.g., x.razor) combined with ref in _Imports.razor *@
+                    <BusyOverlay>
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </BusyOverlay>
+                    @* <Spinner></Spinner>   *@                  
+                    <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"></RouteView> 
+                    @*
+                    The RouteView component handles rendering the matched component specified by the RouteData 
+                    with "its layout"" if "it" ??? has one. If the matched component doesn’t have "a layout", then 
+                    the optionally specified "DefaultLayout" is used.
+
+                    A page will typically have a @layout <child page or component> to act as the Master Page.
+                    For example, a legit route is to page SignIn.  Sign in razor page has a "@layout UnAuthLayout" that
+                    supercedes the MainLayout set as the default above.  The page located by navigation manager will render
+                    in the @Body of the file specfiied its @layout directive.
+
+                    layouts in Blazor only have a single @Body.
+
+                    Layout components in Blazor may be nested. You can apply a layout component to a layout 
+                    component. The contents of the inner layout will be rendered where @Body is located in 
+                    the outer layout.
+
+                    *@
+                </Found>
+                <NotFound>
+                    <LayoutView Layout="@typeof(MainLayout)">
+                        <p>Sorry, there's nothing at the URL in the address bar.</p>
+                    </LayoutView>
+                </NotFound>
+            </Router>
+        </Error>
+    </CascadingAuthenticationState>
+</Blazored.Modal.CascadingBlazoredModal>

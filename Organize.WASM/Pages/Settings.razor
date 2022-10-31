@@ -1,0 +1,24 @@
+﻿@page "/settings"
+
+<AuthorizeView Roles="admin">
+    <!-- Roles set in new Claim(ClaimTypes.Role,"admin") in the WebAPI UserController 
+         Roles values may be a comma separated list, e.g., "admin, superuser"
+    -->
+    <!--These components are from Microsoft.ASPnetCore.Components.Authorization from 
+            NuGet Package/project Microsoft.ASPnetCore.Components.WebAssembly.Authentication
+            See also WebAPIAuthenticationStateProvider  CreateAuthenticationState method-->
+    <Authorized>
+        <div class="p-3">
+            <button class="btn btn-outline-success my-2 my-sm-0" @onclick="DeleteAllDone">Delete All Done</button>
+        </div>
+        <div class="p-3">
+            <button class="btn btn-outline-success my-2 my-sm-0" @onclick="ClearDB">Clear DB</button>
+        </div>
+        <div class="p-3">
+            <button class="btn btn-outline-success my-2 my-sm-0" @onclick="LoadDB">Load Test Data into DB</button>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <div>You're not authorized to see this page.</div>
+    </NotAuthorized>
+</AuthorizeView>

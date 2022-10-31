@@ -1,0 +1,83 @@
+﻿@inherits LayoutComponentBase
+
+<PageTitle>@aPageTItle</PageTitle>
+@if (IsAuthenticated)
+{
+    <nav class="navbar navbar-light justify-content-between fixed-top">
+        <a class="navbar-brand" href="/items">
+            <img src="./images/blazor.png" width="30" height="30" class="d-inline-block align-top">
+            @if (UseShortNavText) @* bool value for UseShortNavText is a result of a javascript function comparing current width to 700px  *@
+            {
+                @:Hello  @* at-colon avoids embedding HTML <p></p> in the razor directly *@
+            }
+            else
+            {
+                @:Hello @CurrentUserService.cCurrentUser! Organize your life right
+            }
+        </a>
+        <form class="form-inline">
+            @* Add the buttons here.  HREF value needs to match the name of one of the page directives, e.g., @page "/settings" case-sensitive *@
+            <NavLink href="items" ActiveClass="active-nav">
+                <button class="btn btn-outline-success my-2 my-sm-0">Items</button>
+            </NavLink>
+            <NavLink href="settings" ActiveClass="active-nav">
+                <button class="btn btn-outline-success my-2 my-sm-0">Settings</button>
+            </NavLink>
+            <NavLink href="about" ActiveClass="active-nav">
+                <button class="btn btn-outline-success my-2 my-sm-0">About</button>
+                <!--a design decision to put ABOUT page in GeneralUi instead of Oranize.WASM  -->
+            </NavLink>
+            <div class="btn btn-outline-success my-2 my-sm-0" @onclick="SignOut">Sign out</div>
+        </form>
+    </nav>
+
+    <div class="main">
+        <ErrorBoundary @ref="errorBoundary">
+            @* 
+                By default, Blazor apps will detect unhandled exceptions within the errorBoundary 
+                and show an error message at the bottom of the page with no additional detail.  
+            *@
+            <ChildContent>
+                @Body
+                @*
+                    LayoutComponentBase defines a single Body property of type RenderFragment
+
+                    During rendering, @Body is replaced by the content of "the layout".
+                    When "the component" is requested its content is loaded into "the layout component" at the point the @Body tag is defined.
+                *@
+            </ChildContent>
+            <ErrorContent>
+                <p class="errorUI">Nothing to see here right now. Sorry!</p>
+            </ErrorContent>
+            @* @Body instead of @context.  Note that @Body.GetType().Name is RenderFragment *@
+        </ErrorBoundary>
+    </div>
+}
+else
+{
+    <nav class="navbar navbar-light justify-content-between fixed-top">
+        <a class="navbar-brand" href="/about">
+            <img src="./images/blazor.png" width="30" height="30" class="d-inline-block align-top">
+            Organize
+        </a>
+        <form class="form-inline">
+            <NavLink href="about" ActiveClass="active-nav">
+                <button class="btn btn-outline-success my-2 my-sm-0">About</button>
+            </NavLink>
+            <div class="btn btn-outline-success my-2 my-sm-0" @onclick="SignOut">Sign out</div>
+        </form>
+    </nav>
+    <div class="main">
+        <a href="/signin">Please go to the sign in page</a>
+    </div>
+}
+
+@code {
+#nullable enable
+    private ErrorBoundary? errorBoundary;
+#nullable disable
+    protected override void OnParametersSet()
+    {
+        Console.Write("error boundary");
+    }
+}

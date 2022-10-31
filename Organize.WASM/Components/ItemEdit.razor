@@ -1,0 +1,16 @@
+﻿<div> <!--This DIV is necessary to allow propogation of styles to the razor component child, e.g., the ChildItemEdit style called .title-->
+    <!--This is the data entry panel to the right of the items list.-->
+    <div class="item-edit-info">
+        <div class="item-edit-info-text">Type: @lclItem.ItemTypeEnum.ToString()</div>
+        <ObservableCollectionObserver TProp="BaseItem" Collection="lclCurrentUserService.cCurrentUser.itemsBelongingToUserId" ObserveChildren="false"> <!--Do not count child items.-->
+            <div class="item-edit-info-count">@lclItem.Position/@lclCurrentUserService.cCurrentUser.itemsBelongingToUserId.Count</div>
+        </ObservableCollectionObserver>
+    </div>
+
+    <label for="title" class="title">Title</label>
+    <input id="title" type="text" class="item-edit-input" @bind-value="@lclItem.Title" @bind-value:event="oninput" />
+
+    <!--next line handles the right-hand editor pane of the item overview ->
+    <DynamicComponent Type="@anyComponentType" Parameters="@anyComponentParameter"></DynamicComponent>
+
+</div>

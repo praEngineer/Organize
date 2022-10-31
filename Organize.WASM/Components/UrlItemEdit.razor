@@ -1,0 +1,7 @@
+﻿<label for="url">Url</label>
+<input id="url" type="text" class="item-edit-input" @bind-value="@pUrlItem.Url" @bind-value:event="oninput">
+<a class="orga-button" href="@pUrlItem.Url" target="_blank">Open</a>
+@code {
+    [Parameter]
+    public UrlItem pUrlItem { get; set; }
+}

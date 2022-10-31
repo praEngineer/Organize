@@ -1,0 +1,92 @@
+﻿@* 
+    ItemsList.razor is a child to the parent ItemsOverview.razor (@page "/items")
+*@
+<div class="w-100" @onclick="OnBackgroundClicked"> @*w-100 is a bootstrap css -- 100% width *@
+    <CascadingValue Value="colOfItemsForOneUserId.Count"> @* find the first CascadingParameter of the HTML parent with an int type declaration *@
+        @foreach (var item in colOfItemsForOneUserId)
+        {
+            switch (item)
+            {
+                case TextItem textItem:
+                    <CascadingValue Value="@("primary")"> 
+                        @* 
+                            The value "primary" will become a CascadingParameter within this tag, and used in CSS names in <ItemElement 
+                            C# Blazor will look at each CascadingParameter of the partial-class ItemElement looking for a property 
+                            with the same type, e.g., string
+                            ItemElement code behind only has one CascadingParameter set up as a string, ColorPrefix.
+                        *@
+                        <ItemElement TItem="Organize.Shared.Entities.BaseItem"
+                                     Item="@item">
+                                     @* item is a 'complex object' with three properties: Title, SubTitle, and Detail 
+                                         displayed in either MainFragment or DetailFragment as specified next
+                                     *@
+                            <MainFragment>
+                                @*
+                                MainFragment is the name of a ' [Parameter] ' in the code behind of ItemElement
+                                Organize.Shared.Entities namespace for MainFragment is "using'd in the _imports.razor
+
+                                ItemElement.razor.cs property MainFragment is of type RenderFragment.  RenderFragment will take these tag contents 
+                                *@
+                                <div class="item-main-container">
+                                    <div class="content-text-top title">@textItem.Title</div>
+                                    <div class="content-text-bottom">@textItem.SubTitle</div>
+                                </div>
+                            </MainFragment>
+                            <DetailFragment>
+                                <div class="detail-text">@textItem.Detail</div>
+                            </DetailFragment>
+                        </ItemElement>
+                    </CascadingValue>
+                    break;
+                case UrlItem urlItem:
+                    <CascadingValue Value="@("secondary")">
+                        <ItemElement TItem="Organize.Shared.Entities.BaseItem"
+                                     Item="@item">
+                            <MainFragment>
+                                <div class="item-main-container">
+                                    <div class="content-text-top title">@urlItem.Title</div>
+                                    <a class="content-text-bottom" href="@urlItem.Url" target="_blank">@urlItem.Url</a>
+                                </div>
+                            </MainFragment>
+                            <DetailFragment>
+                                <img class="detail-image" src="@urlItem.Url">
+                            </DetailFragment>
+                        </ItemElement>
+                    </CascadingValue>
+                    break;
+                case cParentItem parentItem:
+                    <ObservableCollectionObserver TProp="ChildItem" Collection="parentItem.ChildItems" ObserveChildren="true">
+                        <CascadingValue Value="@("tertiary")">
+                            <ItemElement TItem="Organize.Shared.Entities.BaseItem"
+                                         Item="@item">
+                                <MainFragment>
+                                    <div class="item-main-container">
+                                        <div class="content-text-top title">@parentItem.Title</div>
+                                        <div class="content-text-bottom">Children Count: @parentItem.ChildItems.Count</div>
+                                        <div class="content-text-bottom">Done @parentItem.ChildItems.Count(i => i.IsDone)</div>
+                                    </div>
+                                </MainFragment>
+                                <DetailFragment>
+                                    @foreach (var childItem in parentItem.ChildItems)
+                                    {
+                                        <div class="extended-child">
+                                            <div class="check-container">
+                                                <div class="checkbox tertiary-border-color" style="border: 1px solid">
+                                                    <ItemCheckBox Item="@childItem"></ItemCheckBox>
+                                                </div>
+                                            </div>
+                                            <div class="content-container">
+                                                <p class="child-title">@childItem.Title</p>
+                                            </div>
+                                        </div>
+                                    }
+                                </DetailFragment>
+                            </ItemElement>
+                        </CascadingValue>
+                    </ObservableCollectionObserver>
+                    break;
+            }
+
+        }
+    </CascadingValue>
+</div>

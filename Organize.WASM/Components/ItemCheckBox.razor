@@ -1,0 +1,10 @@
+﻿@inherits ItemCheckBoxBase
+
+<div id="itemCheckBox">
+    <div class="outer-container" @onclick="@ChangeIsDone">
+        @if (Item.IsDone)
+        {@*smaller square active when true -- effectively the check-mark in the outer-container *@
+            <div class="inner-container @ColorPrefix-background"></div>
+        }
+    </div>
+</div>

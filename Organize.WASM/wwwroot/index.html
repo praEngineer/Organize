@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Organize.WASM</title>
+
+    <base href="/" />
+    <!--Because the host page is static HTML, then you need to specify the base URL explicitly as done above.-->
+    <!--<link href="./css/bootstrap/bootstrap.min.css" rel="stylesheet" />-->
+    <!--<link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet" />-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <link href="./css/app.css" rel="stylesheet" />
+
+    <link href="Organize.WASM.styles.css" rel="stylesheet" /> <!--This is the link to the scoped style file ??? -->
+
+    <link href="./css/components/sign.css" rel="stylesheet" />
+    <!--<link href="./css/components/controls.css" rel="stylesheet" />-->
+    <link href="./css/components/itemElement.min.css" rel="stylesheet" />
+    <link href="./css/components/itemCheckBox.min.css" rel="stylesheet" />
+    <link href="./css/components/itemsList.min.css" rel="stylesheet" />
+    <link href="./css/components/itemsOverview.min.css" rel="stylesheet" />
+    <!--<link href="./css/components/itemEdit.min.css" rel="stylesheet" />-->
+    <!-- underscore-content is a naming convention
+        [Blazor] _content is generated in /dist
+         in Visual Studio, _content will be the root of the solution
+        -->
+    <link href="_content/GeneralUi/GeneralUi.bundle.scp.css" rel="stylesheet">
+    <link href="_content/GeneralUi/css/style.css" rel="stylesheet" />
+
+    <link href="_content/Blazored.Modal/blazored-modal.css" rel="stylesheet" />
+    <!--
+        The css for Blazored.Modal is part of the NuGet Package; instructions
+        of github.com/Blazored/Modal explain how to install and use BlazoredModalComponent.
+        In this solution, you will not find a file called blazored-modal.css.
+        In the href above, "Blazored.Modal" refers to the name of a NuGet Package rather than a C# project in this solution.
+    -->
+</head>
+
+<body>
+    <app>index.html Loading...</app>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred :/
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+
+    <!-- wwwroot js directory ought to only have jsInerop and jsIsolation; other js files in this same seem to confuse it; moved other files to an excluded archive subdirectory-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+
+    <script src="js/jsInterop.js"></script>
+
+
+    <!-- underscore-content is a naming convention
+        [Blazor] _content is generated in /dist
+         in Visual Studio, _content will be the root of the solution
+        _content/Organize.Persistence_IndexedDB even though indexedDB.js is in the file system at: C:\Users\sfarkas\Desktop\Organize_final_dotNET6\Organize.IndexedDB\wwwroot
+        src content is looking for names in the solution, not the file system
+    -->
+    <script src="_content/Organize.Persistence_IndexedDB/indexedDB.js"></script>
+
+    <script src="_content/Blazored.Modal/blazored.modal.js"></script>
+</body>
+
+</html>

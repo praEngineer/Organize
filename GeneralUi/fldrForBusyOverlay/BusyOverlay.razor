@@ -1,0 +1,10 @@
+﻿@inherits cBusyOverlayBase
+@if (IsBusy)
+{
+    <p>@aMsg</p>
+    <div class="busy-overlay">
+        <div>
+            @ChildContent
+        </div>
+    </div>
+}
